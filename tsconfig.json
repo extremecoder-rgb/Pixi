@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2015", // Make sure this is at least "es2015"
+    "lib": ["dom", "es2015"], // Add other libraries as needed
+    "downlevelIteration": true, // This ensures that downlevel iteration is allowed
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/api/uploadAssetsToIPFS/route.ts"],
+  "exclude": ["node_modules"]
+}
