@@ -1,22 +1,22 @@
 import crypto from "crypto";
 
 const algorithm = "aes-256-cbc";
-const iv = crypto.randomBytes(16); // Initialization vector
+const iv = crypto.randomBytes(16); 
 
-// Encrypts a given encryption key
+
 export async function generateEncryptedEncryptionKey(
   key: CryptoKey,
   encryptionKey: Uint8Array
 ): Promise<{ iv: Uint8Array; encryptedKey: Uint8Array }> {
-  const iv = crypto.getRandomValues(new Uint8Array(12)); // Initialization vector
+  const iv = crypto.getRandomValues(new Uint8Array(12));
 
   const encryptedKey = await crypto.subtle.encrypt(
     {
       name: "AES-GCM",
       iv: iv,
     },
-    key, // AES key
-    encryptionKey // Data to encrypt
+    key,
+    encryptionKey
   );
 
   return {
@@ -25,7 +25,7 @@ export async function generateEncryptedEncryptionKey(
   };
 }
 
-// Decrypts the encrypted encryption key
+
 export async function decryptEncryptedEncryptionKey(
   key: CryptoKey,
   iv: Uint8Array,
@@ -36,8 +36,8 @@ export async function decryptEncryptedEncryptionKey(
       name: "AES-GCM",
       iv: iv,
     },
-    key, // AES key
-    encryptedKey // Data to decrypt
+    key,
+    encryptedKey 
   );
 
   return new Uint8Array(decryptedKey);
@@ -47,9 +47,9 @@ export async function generateAESKey(): Promise<CryptoKey> {
   return crypto.subtle.generateKey(
     {
       name: "AES-GCM",
-      length: 256, // Can be 128, 192, or 256
+      length: 256,
     },
-    true, // Extractable
+    true, 
     ["encrypt", "decrypt"]
   );
 }
