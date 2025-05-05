@@ -8,7 +8,7 @@ import {
   useWeb3ModalAccount,
   useWeb3ModalProvider,
 } from "@web3modal/ethers5/react";
-import { bytes32ToAddress, hexToDecimal } from "@/utils/format"; // Adjust the import path as necessary
+import { bytes32ToAddress, hexToDecimal } from "@/utils/format";
 import { ERC725 } from "@erc725/erc725.js";
 import lsp4Schema from "@erc725/erc725.js/schemas/LSP4DigitalAsset.json";
 import { ERC725YDataKeys } from "@lukso/lsp-smart-contracts";
@@ -42,10 +42,9 @@ export default function Page({ params }: { params: { slug: string } }) {
   const [moments, setMoments] = useState<Moment[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [openInvitationModal, setOpenInvitationModal] = useState(false);
-  // const [openInvitationModal, setInvitationModal] = useState(false);
-
+ 
   useEffect(() => {
-    // fetchNFT();
+    
     const moments_: Moment[] = [];
     moments_.push({
       name: "Living my best life",
@@ -101,100 +100,15 @@ export default function Page({ params }: { params: { slug: string } }) {
 
       const data = await VaultFactoryContract.getVaultMetadata(vaultAddress);
       setVaultMode(data.vaultMode);
-      // setVaultName(data.titme as string);
-      //     setVaultSymbol(symbol.value as string);
-
-      //     setVaultCid(_vaultCid);
-
-      //     const result = await VaultContract.tokenIdsOf(vaultAddress);
-
-      //     // NFT info
-      //     if (result.length > 0) {
-      //       for (let i = 0; i < result.length; i++) {
-      //         let lsp7Contract = new ethers.Contract(
-      //           bytes32ToAddress(result[i]),
-      //           ForeverMemoryCollection.abi,
-      //           signer
-      //         );
-      //         const balance = await lsp7Contract.balanceOf(address);
-
-      //         if (hexToDecimal(balance._hex) == 0) continue;
-      //         const tokenIdMetadata = await VaultContract.getDataForTokenId(
-      //           result[i],
-      //           ERC725YDataKeys.LSP4["LSP4Metadata"]
-      //         );
-      //         const erc725js = new ERC725(lsp4Schema);
-      //         const decodedMetadata = erc725js.decodeData([
-      //           {
-      //             keyName: "LSP4Metadata",
-      //             value: tokenIdMetadata,
-      //           },
-      //         ]);
-      //         const ipfsHash = decodedMetadata[0].value.url;
-
-      //         if (ipfsHash == "") continue;
-      //         const fetchUrl = "https://ipfs.io/ipfs/" + ipfsHash;
-      //         const response = await fetch(fetchUrl);
-      //         if (!response.ok) {
-      //           throw new Error("Failed to fetch image from IPFS");
-      //         }
-      //         const encryptedData = await response.arrayBuffer();
-      //         const decryptedData = await decryptFile(
-      //           new Uint8Array(encryptedData),
-      //           encryptionKey
-      //         );
-      //         const blob = new Blob([decryptedData]); // Creating a blob from decrypted data
-      //         const objectURL = URL.createObjectURL(blob);
-
-      //         // const encryptedData = await decryptFile(cid, encryptionKey);
-      //         const lspContractAddress = bytes32ToAddress(result[i]);
-
-      //         const myAsset = new ERC725(
-      //           lsp4Schema,
-      //           lspContractAddress,
-      //           process.env.NEXT_PUBLIC_DEVELOPMENT_ENVIRONMENT_TYPE == "1"
-      //             ? process.env.NEXT_PUBLIC_MAINNET_URL
-      //             : process.env.NEXT_PUBLIC_TESTNET_URL,
-      //           {
-      //             ipfsGateway: process.env.NEXT_PUBLIC_IPFS_GATEWAY,
-      //           }
-      //         );
-      //         const tokenSymbol = await myAsset.getData("LSP4TokenSymbol");
-      //         const tokenName = await myAsset.getData("LSP4TokenName");
-
-      //         // Extracting value from DecodeDataOutput and updating state with new token data
-      //         setTokenDataArray((prevTokenDataArray) => [
-      //           ...prevTokenDataArray,
-      //           {
-      //             cid: objectURL,
-      //             tokenSymbol: tokenSymbol.value as string,
-      //             tokenName: tokenName.value as string,
-      //             tokenId: result[i],
-      //           },
-      //         ]);
-      //       }
-      //     }
-      //     setIsDownloading(true);
     }
   };
 
   const handleInvitationMember = async () => {
     setOpenInvitationModal(false);
     if (walletProvider) {
-      // const ethersProvider = new ethers.providers.Web3Provider(
-      //   walletProvider,
-      //   "any"
-      // );
-      // const signer = ethersProvider.getSigner(address);
-      // const VaultFactoryContract = new ethers.Contract(
-      //   process.env.NEXT_PUBLIC_VAULT_FACTORY_CONTRACT_ADDRESS as string,
-      //   VaultFactoryABI.abi,
-      //   signer
-      // );
-      // const tx = await VaultFactoryContract.joinVault(vaultAddress);
-      // toast.success("Joint to vault successfully.");
+      
     } else {
-      // toast.error("Please connect the wallet.");
+     
     }
   };
 
