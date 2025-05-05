@@ -11,7 +11,7 @@ import {
   useWeb3ModalAccount,
   useWeb3ModalProvider,
 } from "@web3modal/ethers5/react";
-// import { FMTContract } from "@/components/MasterWalletProvider";
+
 import { hexToDecimal, hexStringToUint8Array } from "@/utils/format";
 import { generateAESKey, decryptEncryptedEncryptionKey } from "@/utils/encryptKey";
 import "./index.css";
@@ -68,7 +68,7 @@ export default function AddMoment() {
   const [tokenName, setTokenName] = useState<string>("");
   const [tokenSymbol, setTokenSymbol] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [copies, setCopies] = useState<number>(3); // Default to 3 copies
+  const [copies, setCopies] = useState<number>(3);
   const [vault, setVault] = useState<VaultOption>(vaultOptions[0]);
   const [file, setFile] = useState<File | null>(null);
   const [cid, setCid] = useState("");
@@ -96,20 +96,12 @@ export default function AddMoment() {
     }
   };
 
-  // Update the setter to set the entire object
+ 
   const handleVaultChange = (selectedOption: VaultOption) => {
     setVault(selectedOption);
   };
 
   const createLSP8Collection = async () => {
-    //  ------ Get LSP8 Daily Selfie Metadata ------  //
-    // @param: title: "Daily Selfie"
-    // @param: headline: "Document Your Journey, Day by Day"
-    // @param: description: "Daily Selfie is your blockchain-based photo journal, capturing one selfie a day to create a visual timeline of your personal evolution. By securely storing your daily photos on-chain, Daily Selfie crafts a unique visual narrative of your life, reflecting the changes and growth over time. Preserve each moment as part of a timeless digital album that celebrates your journey and leaves a lasting legacy."
-    // Generated Metadata: "0x00006f357c6a0020b5b7abdb1a03bad515ab58d61acb9a8c0cb5d2261746767ed87e95370659af75697066733a2f2f516d63775946684750374b426f316134457662427875764466336a513262773164664d456f764154524a5a657458"
-
-    // Contract Address: "0x48b92ddab46ab63db20aa97952d4a3fb0769920d"
-    // https://explorer.execution.testnet.lukso.network/address/0x48b92DDAb46Ab63DB20aa97952D4a3Fb0769920D?tab=txs
 
     const erc725 = new ERC725(LSP4DigitalAsset, "", "", {});
     const lsp8CollectionMetadata = {
@@ -137,18 +129,18 @@ export default function AddMoment() {
       },
     ]);
     console.log("encodeLSP8Metadata", encodeLSP8Metadata.values[0]);
-    // ----- End Metadata ---- //
+   
   };
 
   const handleStoreMemory = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    /////////////////////////////////////////////////////////
+   
     if (address && walletProvider) {
       try {
         setUploading(true);
         const formData = new FormData();
-        !file ? "" : formData.append("file", file); // FormData keys are called fields
+        !file ? "" : formData.append("file", file); 
         formData.append("lsp7CollectionMetadata", vault.contract + tokenName + tokenSymbol + headline);
         const res = await fetch("/api/uploadAssetsToIPFS", {
           method: "POST",
@@ -176,13 +168,12 @@ export default function AddMoment() {
         const _lastClaimed = await ForeverMemoryContract.lastClaimed(address);
         const lastClaimed = hexToDecimal(_lastClaimed._hex);
         const timestamp: number = Date.now();
-        // console.log("lastClaimed", lastClaimed);
-        // first mint or over 24 hours
+       
         if (lastClaimed == 0 || timestamp / 1000 - lastClaimed > 86400) {
-          ///////////// mint function logic
+         
           const lsp7SubCollectionMetadata = {
             LSP4Metadata: {
-              // name: 'Daily Selfie',
+              
               headline,
               description,
               links: [],
@@ -237,46 +228,19 @@ export default function AddMoment() {
           ]);
           console.log("ivAndEncryptedKeyArr", ivAndEncryptedKeyArr);
 
-          // const ivAndEncryptedKey = hexStringToUint8Array(ivAndEncryptedKeyArr);
-          // console.log("ivAndEncryptedKey", ivAndEncryptedKey);
-          // // Assuming the first 12 bytes are the IV (AES-GCM standard)
-          // const iv = new Uint8Array(ivAndEncryptedKey.slice(0, 12));
-          // const encryptedKey = new Uint8Array(ivAndEncryptedKey.slice(12));
-          // const aesKey = await generateAESKey();
-          // console.log("aesKey", aesKey);
-          // const encryptionKey = decryptEncryptedEncryptionKey(aesKey, iv, encryptedKey);
-          // console.log("encryptionKey", encryptionKey);
-
           const tx = await ForeverMemoryContract.mint(
-            tokenName, // tokenName
-            tokenSymbol, //tokenSymbol
-            true, // isNonDivisible
-            copies, // totalSupplyofLSP7
-            address, //receiverOfInitialTokens_
+            tokenName, 
+            tokenSymbol, 
+            true, 
+            copies, 
+            address, 
             encodeLSP7Metadata.values[0],
             ivAndEncryptedKeyArr
           );
 
           console.log("tx", tx);
 
-          //////////// send reward token logic
-          // const gasLimit = 100000;
-          // const rewardAmount = await ForeverMemoryContract.rewardAmount();
-          // const mWalletOwner = await FMTContract.owner();
-          // console.log("mWalletOwner:", mWalletOwner);
-          // const decimals = await FMTContract.balanceOf(mWalletOwner);
-          // console.log("decimals:", decimals);
-          // const amount = ethers.utils.parseUnits(rewardAmount, 18);
-          // console.log("amount:", amount);
-          // const txt = await FMTContract.transfer(
-          //   mWalletOwner,
-          //   owner,
-          //   amount,
-          //   false,
-          //   "0x",
-          //   { gasLimit: gasLimit }
-          // );
-          // console.log("tx:", txt);
+         
           setUploading(false);
           alert("You minted one memory successfully! \n EncryptedEncryptionKey: " + ivAndEncryptedKeyArr);
         } else {
@@ -359,13 +323,13 @@ export default function AddMoment() {
               <select
                 id="vault"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value={vault.label} // Set the value to vault.label
+                value={vault.label}
                 onChange={(e) => {
                   const selectedOption = vaultOptions.find(
                     (option) => option.label === e.target.value
                   );
                   if (selectedOption) {
-                    handleVaultChange(selectedOption); // Call the handler with the selected option
+                    handleVaultChange(selectedOption); 
                   }
                 }}
               >
