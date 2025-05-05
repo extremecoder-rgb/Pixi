@@ -6,12 +6,6 @@ import Footer from "@/components/Footer";
 
 import { config } from "@/app/config";
 import "./globals.css";
-/**
- * Defines the basic layout for the application. It includes the
- * global font styling and a consistent layout for all pages.
- *
- * @param children - The pages to be rendered within the layout and header.
- */
 export default function RootLayout({
   children,
 }: Readonly<{
