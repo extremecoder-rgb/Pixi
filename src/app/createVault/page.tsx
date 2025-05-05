@@ -17,8 +17,8 @@ interface FormValues {
   metadataUriImage: File | null;
   metadataUriDescription: string;
   rewardAmount: number;
-  vaultMode: number; // 1 for Private, 0 for Public
-  firstMemberAddress: string; // New field for the first member address
+  vaultMode: number; 
+  firstMemberAddress: string;
 }
 
 interface CategoryOption {
@@ -62,7 +62,7 @@ export default function CreateVault() {
     metadataUriImage: null,
     metadataUriDescription: "",
     rewardAmount: 0,
-    vaultMode: 1, // Default to Private
+    vaultMode: 1, 
     firstMemberAddress: "",
   });
 
