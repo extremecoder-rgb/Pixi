@@ -19,7 +19,7 @@ import {
   bytes32ToAddress,
 } from "@/utils/format";
 
-// Define the types you expect
+
 type URLDataWithHash = {
   url: string;
   hash: string;
@@ -27,7 +27,7 @@ type URLDataWithHash = {
 
 type Data = string | number | boolean | URLDataWithHash | Data[];
 
-// Type guard to check if the value has a 'url' property
+
 function hasUrlProperty(value: any): value is URLDataWithHash {
   return value && typeof value === "object" && "url" in value;
 }
@@ -88,7 +88,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       if (hasUrlProperty(nft?.value)) {
         ipfsHash = nft.value.url;
       } else {
-        // Handle the case where vault?.value does not have a 'url' property
+        
         console.log("The value does not have a 'url' property.");
       }
       const encryptionKey = await generateEncryptionKey(
@@ -103,7 +103,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         new Uint8Array(encryptedData),
         encryptionKey
       );
-      const blob = new Blob([decryptedData]); // Creating a blob from decrypted data
+      const blob = new Blob([decryptedData]); 
       const objectURL = URL.createObjectURL(blob);
       setCid(objectURL);
 
@@ -170,32 +170,6 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   const handleSend = async () => {
     if (walletProvider) {
-      // Define the provider (e.g., Infura, Alchemy, or a local node)
-      // const providerUrl = "https://4201.rpc.thirdweb.com/";
-      // const provider = new ethers.providers.JsonRpcProvider(providerUrl);
-
-      // // Define the sender's wallet private key (you should handle private keys securely)
-      // const senderPrivateKey: string =
-      //   "0x402fde8f699d25643f6e7f258cc152b61702653ae48869d40aada732dfdea248";
-      // const wallet = new ethers.Wallet(senderPrivateKey, provider);
-
-      // // Define the contract address and ABI
-      // const contractAddress = "0x0a21fe68f7b08023d9D5E3eBc46ABE9B2E487C67";
-      // // Create a contract instance
-      // const contract = new ethers.Contract(contractAddress, FMT.abi, wallet);
-
-      // // Define the receiver address and amount to send
-      // const receiverAddress = "0xa46f37632a0b08fb019C101CFE434483f27CD956";
-      // const amount = ethers.utils.parseUnits("10", 18);
-
-      // const tx = await contract.transfer(receiverAddress, amount, true, "0x");
-      // console.log("Transaction hash:", tx.hash);
-
-      // // Wait for the transaction to be mined
-      // const receipt = await tx.wait();
-      // console.log("Transaction was mined in block:", receipt.blockNumber);
-      // console.log("Transaction successful with receipt:", receipt);
-
       const ethersProvider = new ethers.providers.Web3Provider(
         walletProvider,
         "any"
@@ -212,19 +186,10 @@ export default function Page({ params }: { params: { slug: string } }) {
       const tokenIds = await lsp7Contract.tokenIdsOf(tokenOwner);
       console.log("tokenIds", tokenIds);
 
-      // const tx = await lsp7Contract
-      //   .transfer(
-      //     owner, // sender address
-      //     "0x0051507f422b0Ca092ae038A0887AfE96A31585f", // receiving address
-      //     1, // token amount
-      //     false, // force parameter
-      //     "0x" // additional data
-      //   )
-      //   .send({ from: owner });
-      // console.log("tx", tx);
+     
     }
 
-    // setShowModal(false);
+   
   };
 
   return !isDownloading ? (
